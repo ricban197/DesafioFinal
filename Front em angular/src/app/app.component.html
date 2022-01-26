@@ -1,0 +1,124 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Gerenciamento de Clientes</li>
+  </ol>
+</nav>
+<div class="container">
+  <div class="card list-cli">
+    <h5 class="card-header">Lista de Clientes</h5>
+    <div class="card-body">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">email</th>
+              <th scope="col">cep</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cli of clis">
+              <td>{{cli.id}}</td>
+              <td>{{cli.nome}}</td>
+              <td>{{cli.numero}}</td>
+              <td>{{cli.email}}</td> 
+              <td>{{cli.cep}}</td>
+              <td>
+                <button type="button" class="btn btn-warning btn-sm" (click)="editCliente(cli)">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteCliente(cli)">Deletar</button>
+                <button type="button" class="btn btn-add-cliente2 btn-sm ml-1" (click)="verCliente(cli)">Ver</button>>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+        <button type="button" class="btn btn-secondary btn-add-cliente" (click)="getClientes()">Atualizar</button>
+    </div>
+  </div>
+
+  <div class="add-cliente">
+      <h5 class="card-header">Adicionar/Atualizar Clientes</h5>
+      <div class="card-body">
+        <form id="add-form" (ngSubmit)="f.form.valid && saveCliente(f)" #f="ngForm" novalidate>
+         <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" [(ngModel)]="cli.nome" id="nome" name="nome" #nome="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && nome.invalid }" placeholder="Digite o nome">
+              <div *ngIf="f.submitted && nome.invalid" class="invalid-feedback">
+                  
+              </div>
+          </div>
+        
+          <div class="form-group">
+              <label for="telefone">telefone</label>
+              <input type="text" [(ngModel)]="cli.numero" id="numero" name="numero" #numero="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && numero.invalid }" placeholder="Digite o telefone">
+              <div *ngIf="f.submitted && numero.invalid" class="invalid-feedback">
+                  
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="email">email</label>
+              <input type="email" [(ngModel)]="cli.email" id="email" name="email" #email="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" placeholder="Digite o email">
+              <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">               
+              </div>
+          </div>
+             
+          <div class="form-group">
+            <label for="cep">cep</label>
+            <input type="cep" [(ngModel)]="cli.cep" id="cep" name="cep" #cep="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && cep.invalid }" placeholder="Digite o cep">
+            <div *ngIf="f.submitted && cep.invalid" class="invalid-feedback">               
+            </div>
+        </div>
+     
+          <button type="submit" class="btn btn-primary btn-add-cliente">Salvar</button>
+          <button type="reset" class="btn btn-secondary btn-add-cliente" (click)="cleanForm(f)">Cancelar</button>
+        </form>
+      </div>
+    </div> 
+    <div *ngIf="index.id" >
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">email</th>
+          <th scope="col">cep</th>   
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{index.id}}</td>
+          <td>{{index.nome}}</td>
+          <td>{{index.numero}}</td>
+          <td>{{index.email}}</td> 
+          <td>{{index.cep}}</td>      
+        </tr>
+      </tbody>
+    </table>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">logradouro</th>
+          <th scope="col">complemento</th>
+          <th scope="col">bairro</th>
+          <th scope="col">localidade</th>
+          <th scope="col">uf</th>
+          <th scope="col">ddd</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{index.endereco.logradouro}}</td>
+          <td>{{index.endereco.complemento}}</td>
+          <td>{{index.endereco.bairro}}</td>
+          <td>{{index.endereco.localidade}}</td> 
+          <td>{{index.endereco.uf}}</td> 
+          <td>{{index.endereco.ddd}}</td>        
+        </tr>
+      </tbody>
+    </table> 
+  </div>
+</div>
